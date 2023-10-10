@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <main>
+
+        <div class="add-address" style="background-color: rgb(52, 52, 52)4, 44);">
+            <div class="text-center">
+                <h2>add your address</h2>
+            </div>
+            <form action="/add-address" id="addAddressForm" method="POST">
+                <div class="inner-add-adress d-flex ">
+                    <div class="me-2">
+                        <label for="recipientName">House Name :</label><br>
+                        <input type="text" id="houseName" class="addressName" name="houseName"
+                            pattern="^[a-zA-Z0-9][a-zA-Z0-9\s]+$" required><br>
+
+                        <label for="city">City:</label><br>
+                        <input type="text" id="city" name="city" class="addressName"
+                            pattern="^[a-zA-Z0-9][a-zA-Z0-9\s]+$" required><br>
+
+                        <label for="mobile">Mobile</label><br>
+                        <input type="text" id="mobile" name="mobile" pattern="^[6-9]\d{9}$" required><br>
+                    </div>
+
+                    <div class="ms-2">
+
+                        <label for="streetAddress">Street Address:</label><br>
+                        <input type="text" id="streetAddress" name="streetAddress" class="addressName"
+                            pattern="^[a-zA-Z0-9][a-zA-Z0-9\s]+$" required><br>
+
+
+
+                        <label for="state">State:</label><br>
+                        <input type="text" id="state" name="state" pattern="^[a-zA-Z][a-zA-Z\s]+$" required><br>
+
+                        <label for="postalCode">Postal Code:</label><br>
+                        <input type="text" id="postalCode" name="postalcode" pattern="^\d{6}$" required><br>
+
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    <p id="message"></p>
+                    <button id="submitBtn" class="default-button mt-3" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+            <script>
+                let submitBtn = document.getElementById('submitBtn')
+                // let mobile = document.getElementById('mobile')
+                let postalCode = document.getElementById('postalCode')
+                let postalCodePattern = '/^\d{6}$/'
+                let errMsg = document.getElementById('message')
+
+                // mobile.setCustomValidity('enter a valid mobile number')
+                //  
+                // let houseName = document.getElementsByClassName('addressName');
+                // for(let each of houseName){
+                //     each.setCustomValidity("should not contain any special chracters")
+                // }
+
+                submitBtn.addEventListener('click', () => {
+                    console.log('hai')
+
+                    if (!postalCode.value.match(postalCodePattern)) {
+                        errMsg.innerText = 'should contain 6 digits'
+                    }else{
+                        errMsg.innerText = ''
+                    }
+
+                })
+
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+            <div class="user-profile-box">
+                <div class="left-cartdetails" id="cartItemDetails">
+                    <div class="head-name">
+                        <h1 class="double-underline mb-5">Wishlist</h1>
+                    </div>
+                    <% if (! locals.wishListItems[0]) {%>
+                        <div class="empty-message text-center">
+                            <h1>Sorry No Products <br>
+                                please add something <br> in your cart</h1>
+                        </div>
+                        <% } %>
+                            <% for (let each of locals.wishListItems) { %>
+
+                                <div class="cart-item">
+                                    <% if(!each.isAvailable) { %>
+                                        <div class="blocked-product"></div>
+                                        <div class="blocked-text">
+                                            <h5 class="m-0">Sorry this product is not available for now</h5>
+                                        </div>
+                                        <% } %>
+                                            <div id="cartItemImg" class="cart-item-img">
+                                                <img src="<%= each.productImg[0] %>" alt="">
+                                            </div>
+                                            <div class="cart-item-details">
+                                                <div class="cart-item-title">
+                                                    <h6>
+                                                        <%= each.productName %>
+                                                    </h6>
+                                                    <p class="product-price ind-rs">
+                                                        <%= each.productPrice %>
+                                                    </p>
+                                                </div>
+                                                <div class="cart-item-mid">
+
+                                                    <p class="product-weight"><span>Weight:</span>
+                                                        <%= each.productWeight %>kg
+                                                    </p>
+                                                </div>
+                                                <div class="cart-item-mid">
+                                                    <div>
+                                                        <% if(locals.cartIds?.includes(each.product_id)) { %>
+                                                            <a class="default-button px-2 py-2" href="/cart">Go to Cart</a>
+                                                        <% } else { %>
+                                                            <button onclick="addToCart('<%= each.product_id %>',this)" class="default-button px-2">Add to Cart</button>
+                                                        <% } %>
+                                                    </div>
+                                                    <p id="cartItemDelete"
+                                                        onclick="removeFromList(this,'<%= each.product_id %>')"
+                                                        class="delete-icon"><i class="bi bi-trash3-fill"></i></p>
+                                                </div>
+                                            </div>
+
+                                </div>
+                                <% } %>
+
+                </div>
+
+
+                <%- include('../partials/user-sidebar') %>
+            </div>
+
+        </div>
+        <script defer src="/scripts/notification.js"></script>
+        <script defer src="/scripts/add_to.js"></script>
+        <script defer src="/scripts/wishlist.js"></script>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

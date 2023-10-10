@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additin</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="homepage">
+            <div class="container-fluid homepage-banner">
+                <div style="height: inherit;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img  class=""
+                                src="<%= locals.topBanners[0]?.path[0] %>" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class=""
+                                src="<%= locals.topBanners[0]?.path[1] %>" alt="Second slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+            <div class=" container features py-3">
+                <div class=" text-center mb-5">
+                    <h1 class="double-underline poppins mb-5" style="color: #fff;">We are providing </h1>
+                </div>
+                <div class=" row g-5 features-lists">
+                    <div class="col-6 col-md px-auto">
+                        <div class="cards text-center card-box mx-auto 
+                        d-flex justify-content-center align-items-center">
+                            <div>
+                                <i class="fa-solid bi bi-building-check" style="font-size: 2rem; color: rgb(255, 255, 255);"></i>
+                                <div class="card-body">
+                                    <p class="card-text mt-2" style="color: #fff;">Formals </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <div class="cards text-center card-box  mx-auto 
+                        d-flex justify-content-center align-items-center">
+                            <div>
+                                <i class="bi bi-slack" style="font-size: 2rem; color: #fff;"></i>
+                                <div class="card-body">
+                                    <p class="card-text" style="color: #fff;">Casuales </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <div class="cards text-center card-box  mx-auto 
+                        d-flex justify-content-center align-items-center">
+                            <div>
+                                <i class="bi bi-arrow-return-right" style="font-size: 2rem; color: #fff;"></i>
+                                <div class="card-body">
+                                    <p class="card-text mt-2" style="color: #fff;">Easy Return </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md">
+                        <div class="cards text-center card-box d-flex 
+                        justify-content-center align-items-center  mx-auto ">
+                            <div>
+                                <i class="fa-solid fa-clock-rotate-left pb-2 " style=" font-size: 2rem; color: #fff;"></i>
+                                <div class="card-body">
+                                    <p class="card-text" style="color: #fff;">24*7 service</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- <div class="homepage-banner-2 d-flex justify-content-center">
+                <div class="py-2 ">
+                    <img src="" style="object-fit: contain; max-height: 25rem; width: auto;" alt="">
+                </div>
+            </div> -->
+
+            <div id="products" class="product-cards container py-5">
+                <div class=" text-center mb-3">
+                    <h1 class="double-underline poppins mb-5" style="color: #fff;">Our Products</h1>
+                </div>
+                <div class="row gx-5" id="pagination-row" data-page-num="0">
+                    <% if (! locals.products[0]) {%>
+                        <div class="empty-message text-center">
+                            <h1>Sorry No Products Please Check after some time</h1>
+                        </div>
+                        <% } %>
+                            <% for(let each of locals.products) { %>
+
+                                <div id="" class="col-lg-4 col-md-6">
+                                    <div class="wrapper position-relative" >
+                                        <div class="wishlist-heart-group" style="background-color: #434343;">
+
+                                            <% if ( locals.cartAndWish &&
+                                                locals.cartAndWish[0]?.wishListIds?.includes(each.product_id)) { %>
+                                                <input name="<%= each.product_id %>" id="<%= each.product_id %>"
+                                                    type="checkbox" checked />
+                                                <%} else {%>
+                                                    <input name="<%= each.product_id %>" id="<%= each.product_id %>"
+                                                        type="checkbox" />
+                                                    <% } %>
+                                                        <label for="<%= each.product_id %>"
+                                                            data-hover-text="<%= each.product_id %>">
+                                                            <form action="">
+                                                                <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                                xmlns:cc="http://creativecommons.org/ns#"
+                                                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                                                xmlns:svg="http://www.w3.org/2000/svg"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                                                version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
+                                                                <g transform="translate(0,-952.36218)">
+                                                                    <path
+                                                                        style="color:#000000;enable-background:accumulate;"
+                                                                        d="m 34.166665,972.36218 c -11.41955,0 -19.16666,8.91891 -19.16666,20.27029 0,19.45943 15,27.56753 35,39.72973 20.00001,-12.1622 34.99999,-20.2703 34.99999,-39.72973 0,-11.35137 -7.7471,-20.27029 -19.16665,-20.27029 -7.35014,0 -13.39148,4.05405 -15.83334,6.48647 -2.44185,-2.43241 -8.48319,-6.48647 -15.83334,-6.48647 z"
+                                                                        fill="transparent" id="heart-path"
+                                                                        stroke="#ffff" stroke-width="5" marker="none"
+                                                                        visibility="visible" display="inline"
+                                                                        overflow="visible" />
+                                                                </g>
+                                                            </svg></form>
+                                                        </label>
+                                        </div>
+                                        <div class="container m-0 p-0">
+                                            <div class="top">
+                                                <a href="/product/<%= each.product_id %>"><img class="my-auto" src="<%= each.productImg[0] %>" alt=""></a>
+                                            </div>
+                                            <div
+                                                class="bottom 
+                                            <%= locals.cartAndWish && locals.cartAndWish[0]?.cartIds &&
+                                            locals.cartAndWish[0]?.cartIds.includes(each.product_id) ? 'clicked': ''; %>" >
+                                                <div class="left" style="background-color: #434343;">
+                                                    <div class="details">
+                                                        <h6>
+                                                            <%= each.productName %>
+                                                        </h6>
+                                                        <p class="ind-rs">
+                                                            <%=each.productPrice %>
+                                                        </p>
+                                                    </div>
+                                                    <div class="buy"
+                                                        onclick="addToCart('<%= each.product_id %>',this,'card')" style="background-color: #434343;"><i
+                                                            class="material-icons"
+                                                            style="color: #fff;">add_shopping_cart</i></div>
+                                                </div>
+                                                <div class="right" style="background-color: #434343;">
+                                                    <div class="done"><a href="/cart"><i
+                                                                class="material-icons">shopping_cart_checkout</i></a>
+                                                    </div>
+                                                    <div class="details">
+                                                        <h1></h1>
+                                                        <p class="mt-3"><strong>Go to cart</strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% } %>
+                </div>
+                <div class="pagination d-flex justify-content-center mt-5" style="border-color: #fff;">
+                    <% if (locals.products[0]) {%>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <p class="page-link" onclick="paginatePrev()" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+
+                                    </p>
+                                </li>
+
+                                <% for (let i=0; i < Math.ceil(locals.count/3) ; i++) { %>
+                                    <li class="page-item paginate-buttons">
+                                        <p onclick="paginate('<%= i %>',this)" class="page-link">
+                                            <%= i+1 %>
+                                        </p>
+                                    </li>
+                                    <% } %>
+
+                                        <li class="page-item">
+                                            <p class="page-link" onclick="paginateNext()" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </p>
+                                        </li>
+                            </ul>
+                        </nav>
+                        <% } %>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <%- include('../partials/bootstrap-script') %>
+            <%- include('../partials/footer')%>
+
+                <script defer src="/scripts/pagination.js"></script>
+                <script defer src="/scripts/notification.js"></script>
+                <script defer src="/scripts/add_to.js"></script>
+
+</body>
+
+</html>

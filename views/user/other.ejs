@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+            <div class="user-profile-box">
+                <div class="left-cartdetails " id="cartItemDetails">
+                    <div class="other-box bg-white p-3" style="max-width: 30rem; height: 100%;">
+                        <div class="head-name text-center">
+                            <h1 class="double-underline mb-5">Discount Coupons</h1>
+                        </div>
+                        <% if (! locals.coupons[0]) {%>
+                            <div class="empty-message text-center">
+                                <h1>Sorry No coupons </h1>
+                            </div>
+                            <% } %>
+
+                                <div class=" my-3 row g-3 coupon-list">
+                                    <% for (let each of locals.coupons) { %>
+
+                                        <div class="col-sm-6 d-flex">
+                                            <div class="ms-2 p-1 text-center border d-flex align-items-center rounded shadow">
+                                                <div>
+                                                    <h5>
+                                                        <%= each.couponCode %>
+                                                    </h5>
+                                                    <p>
+                                                        <%= each.couponType==='percent' ? `flat ${each.couponValue}%
+                                                            discount on any purchase`:`flat ${each.couponValue} discount
+                                                            on any purchase`; %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <% } %>
+                                </div>
+
+                    </div>
+                </div>
+
+
+                <%- include('../partials/user-sidebar') %>
+            </div>
+
+        </div>
+
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

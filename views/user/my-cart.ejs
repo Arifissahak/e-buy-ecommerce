@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+            <div class="user-profile-box">
+                <div class="left-cartdetails" id="cartItemDetails">
+                    <div class="head-name">
+                        <h1 class="double-underline mb-5">My Cart</h1>
+                    </div>
+                    <% if (! locals.cartItems[0]) {%>
+                        <div class="empty-message text-center">
+                            <h1>Sorry No Products <br>
+                                please add something <br> in your cart</h1>
+                        </div>
+                        <% } %>
+                            <% for (let each of locals.cartItems) { %>
+                                <% if(each.product) { %>
+                                    <div class="cart-item">
+                                        <% if(!each.product.isAvailable) { %>
+                                            <div class="blocked-product"></div>
+                                            <div class="blocked-text">
+                                                <h5 class="m-0">Sorry this product is not available for now</h5>
+                                            </div>
+                                            <% } %>
+                                                <div id="cartItemImg" class="cart-item-img">
+                                                    <img src="<%= each.product.productImg[0] ? each.product.productImg[0] : '/assets/sadCatImg.jpg' %>" alt="">
+                                                </div>
+                                                <div class="cart-item-details">
+                                                    <div class="cart-item-title">
+                                                        <h6>
+                                                            <%= each.product.productName %>
+                                                        </h6>
+                                                        <p class="product-price ind-rs">
+                                                            <%= each.product.productPrice %>
+                                                        </p>
+                                                    </div>
+                                                    <div class="cart-item-mid">
+                                                        <div class="quantity">
+                                                            <label for="quantity">Quantity:</label>
+                                                            <input type="number" style="width: 3rem;" id="quantity"
+                                                                onclick="quantityChange(this)"
+                                                                data-product_id="<%= each.product.product_id %>"
+                                                                name="quantity" min="1"
+                                                                value="<%= each.items[0].quantity%>">
+                                                        </div>
+                                                        <p class="product-weight"><span>Weight:</span>
+                                                            <%= each.product.productWeight %>kg
+                                                        </p>
+                                                    </div>
+                                                    <div class="cart-item-mid">
+                                                        <div></div>
+                                                        <p id="cartItemDelete"
+                                                            onclick="deleteItem(this,'<%= each.product.product_id %>')"
+                                                            class="delete-icon"><i class="bi bi-trash3-fill"></i></p>
+                                                    </div>
+                                                </div>
+
+                                    </div>
+                                    <% } %>
+                                        <% } %>
+                </div>
+
+
+                <%- include('../partials/user-sidebar') %>
+            </div>
+
+            <div class="placeorder" style="background-color: rgb(104, 104, 104);">
+                <h5>Price Details</h5>
+                <div class="cart-item-mid">
+                    <p id="itemsCount"></p>
+                    <p id="itemSum" class="ind-rs">
+                        <%= locals.total %>
+                    </p>
+                </div>
+                <div class="cart-item-mid">
+                    <p>shipping</p>
+                    <p id="shippingCharge" class="ind-rs">
+                        <%= locals.total==0 ? 0 : locals.total> 5000 ?'free shipping': 40;%> %>
+                    </p>
+                </div>
+                <div class="cart-item-mid">
+                    <p>total</p>
+                    <p id="totalSum" class="ind-rs">
+                        <%= locals.total==0 ? 0 : locals.total> 5000 ?locals.total : locals.total + 40;%>
+                    </p>
+                </div>
+                <div class="text-end">
+                    <a class="default-button rounded px-2" href="/cart-order">Place Order</a>
+                </div>
+
+            </div>
+
+        </div>
+        <script defer src="/scripts/notification.js"></script>
+        <script defer src="/scripts/cart.js"></script>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

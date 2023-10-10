@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+       <%- include('../partials/navbar') %>
+    </header>
+    <div class="dashboard-container">
+       <div class="admin-sidebar">
+        <ul>
+            <li><a href="/admin/dashboard">Dashboard</a></li>
+            <li style="border-bottom:4px solid #003466;"><a href="" style="color: blue;"><a href="">Orders</a></li>
+            <li><a href="/admin/products">Products</a></li>
+            <li><a href="/admin/userlists">Users</a></li>
+            <li><a href="/admin/others">Other</a></li>
+        </ul>
+        <div class="logout-button">
+            <a href="/admin/logout">Logout</a>
+        </div>
+       </div>
+       <div class="userlists-div text-center" style="min-height: calc(100vh );">
+        <div class="container mt-5">
+            <h2>Order Details</h2>
+            <table class="table" id="orderTable">
+                <thead>
+                    <tr>
+                        <th >Sl no</th>
+                        <th>UserName</th>
+                        <th>Order Status</th>
+                        <th>Total Amount</th>
+                        <th>Items</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let k = 0%>
+                    <% for (let each of locals.orders){ %>
+                    <% k++ %>
+                    <tr>
+                        <td><%= k %></td>
+                        <td><%= each.user[0].name %></td>
+                        <td><%= each.orderStatus %></td>
+                        <td><%= each.amountPayable?each.amountPayable:each.total %></td>
+                        <td><%= each.items.length %></td>
+                        <% if (each.orderStatus === 'pending') {%>
+                        <td><a class="default-button px-2" href="/admin/order-confirm/<%= each.order_id %>">confirm</a></td>
+                        <%} else {%>
+                        <td></td>
+                        <% } %>
+
+                        <% if (!(each.orderStatus === 'cancelled')) {%>
+                        <td><a class="cancel-button px-2" href="/admin/order-cancel/<%= each.order_id %>">cancel</a></td>
+                        <%} else {%>
+                         <td></td>
+                         <% } %>
+    
+                        <td><a class="default-button px-2" href="/admin/order-more/<%= each.order_id %>">more</a></td>
+                       
+                    </tr>
+                    <% } %>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+       </div>
+    </div>
+        <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+</html>

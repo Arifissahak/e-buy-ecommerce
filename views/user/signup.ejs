@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <main>
+        <div class="signup-box py-2">
+            <div class="  ">
+                <div class="header d-flex justify-content-center">
+                    <h2>Sign Up Now</h2>
+                </div>
+                <div class="user-form">
+                    <form action="/signup" method="post" id="validation_form">
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name" required><br>
+
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email" required><br>
+
+                        <label for="password">Password:</label><br>
+                        <input type="password" id="password" name="password" required><br>
+
+                        <label for="confirm_password">Confirm Password:</label><br>
+                        <input type="password" id="confirm_password" name="password2" required><br>
+
+                        <p id="error" style="font-size: 13px; color: red; margin-left: 10px;"></p>
+                        <p id="error" style="font-size: 13px; color: red; margin-left: 10px;"><%= locals.message %></p>
+
+                        <input type="submit" value="Sign Up" class="sign-btn">
+                    </form>
+                </div>
+                <a class="me-3" href="/login">already have an accout? Log in</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="/scripts/signup_validation.js"></script>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

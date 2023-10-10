@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <%- include('../partials/bootstrap-styles') %>
+</head>
+<body class="p-0">
+    <header>
+       <%- include('../partials/navbar') %>
+    </header>
+    <main class="d-flex align-items-center">
+                    <div class="edit-modal " id="edit-modal">
+                        <h1 class="my-3">Edit Banner</h1>
+
+                        <form action="/admin/edit-banner" method="post" enctype="multipart/form-data">
+                            <input  type="file" id="file_uploader" name="banner-img" accept=".jpg, .jpeg, .png" multiple required><br>
+                            <br>
+                            <input class="default-button" type="submit">
+                        </form>
+                    </div>
+     </main>
+        <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+            <form action="/buynow" method="post" id="buyNowForm">
+                <div class="">
+                    <div class="buy-now-box" id="cartItemDetails">
+                        <div class="head-name">
+                            <h1 class="double-underline my-5">Order Summary</h1>
+                        </div>
+                        <% if(locals.product) { %>
+                            <div class="cart-item shadow">
+                                <% if(!locals.product.isAvailable) { %>
+                                    <div class="blocked-product"></div>
+                                    <div class="blocked-text">
+                                        <h5 class="m-0">Sorry this product is not available for now</h5>
+                                    </div>
+                                    <% } %>
+                                        <div id="cartItemImg" class="cart-item-img">
+                                            <img src="<%= locals.product.productImg[0] %>" alt="">
+                                        </div>
+                                        <div class="cart-item-details">
+                                            <div class="cart-item-title">
+                                                <h6>
+                                                    <%= locals.product.productName %>
+                                                </h6>
+                                                <p class="product-price ind-rs">
+                                                    <%= locals.product.productPrice %>
+                                                </p>
+                                            </div>
+                                            <div class="cart-item-mid">
+                                                <div class="quantity">
+                                                    <label for="quantity">Quantity:</label>
+                                                    <input type="number" style="width: 3rem;" id="quantity"
+                                                        onclick="quantityChange(this)"
+                                                        data-product-price="<%= locals.product.productPrice %>"
+                                                        name="quantity" min="1" value="1">
+                                                </div>
+                                                <p class="product-weight"><span>Weight:</span>
+                                                    <%= locals.product.productWeight %>kg
+                                                </p>
+                                            </div>
+                                        </div>
+
+                            </div>
+                            <% } %>
+
+                                <div class="head-name my-5">
+                                    <h2 class="">Select Your Address</h2>
+                                </div>
+
+                                <div class="address">
+                                    <% if(locals.address[0]){ %>
+                                        <h4>Address</h4>
+                                        <% for (let each of locals.address) { %>
+                                            <div class="address-box">
+                                                <div class="address-details">
+                                                    <p>
+                                                        <%= each.houseName %>, <%= each.streetAddress %>,
+                                                    </p>
+                                                    <p>
+                                                        <%= each.city %>,
+                                                    </p>
+                                                    <p>
+                                                        <%= each.state %>,
+                                                    </p>
+                                                    <p>postal code : <%= each.postalcode %>,
+                                                    </p>
+                                                    <p>mobile : <%= each.mobile %>
+                                                    </p>
+                                                </div>
+                                                <div class="deleteButton">
+                                                    <input type="radio" name="address" value="<%= each._id %>" required>
+                                                </div>
+
+                                            </div>
+                                            <% } %>
+                                                <% } else { %>
+                                                    <div class="empty-message text-center">
+                                                        <h1>no address to select <br> please add your address</h1>
+                                                    </div>
+                                                    <% } %>
+
+                                                        <div class="add-address-btn my-3 text-end">
+                                                            <a class="default-button" href="/add-address">+add
+                                                                address</a>
+                                                        </div>
+                                </div>
+                                <p id="errorMessage" class="error-message">
+                                    <%= locals.msg %>
+                                </p>
+
+                    </div>
+
+
+                </div>
+
+                <div class="buy-placeorder">
+                    <h5>Price Details</h5>
+                    <div class="cart-item-mid">
+                        <p id="itemsCount">item(1)</p>
+                        <p id="itemSum" class="ind-rs">
+                            <%= locals.product.productPrice %>
+                        </p>
+                    </div>
+                    <div class="cart-item-mid">
+                        <p>shipping</p>
+                        <p id="shippingCharge" class="ind-rs">
+                            <%= locals.product.productPrice==0 ? 0 : locals.product.productPrice> 5000 ?'free shipping':
+                                40; %>
+                        </p>
+                    </div>
+                    <div class="cart-item-mid">
+                        <p>total</p>
+                        <p id="totalSum" class="ind-rs">
+                            <%= locals.product.productPrice==0 ? 0 : locals.product.productPrice> 5000
+                                ?locals.product.productPrice : locals.product.productPrice + 40;%>
+                        </p>
+                    </div>
+                    <div class="text-end">
+                        <input onclick="" class="default-button px-2 rounded mt-1" type="submit" value="placeorder">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script defer src="/scripts/notification.js"></script>
+        <script defer src="/scripts/buy_now.js"></script>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

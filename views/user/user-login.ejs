@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header style="position: fixed; top: 0;">
+       <%- include('../partials/navbar') %>
+    </header>
+    <main class="d-flex">
+        <div class="login-box">
+                <div>
+                    <div class="text-center"><h2>Login Now</h2></div>
+                    <form action="/login " method="post">
+                    
+                
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required><br>
+
+                    <a onclick="getOtp()" href="">login with otp</a><br>
+                
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" required><br>
+
+                    <a  href="/email">forget password?</a><br>
+
+                    <p class="<%= locals.success ? 'green' : 'error-message' %>" id="err-message"><%= locals.message %></p>
+                    <!-- <p style="color: green; font-size: 13px;"><%= locals.completed %></p> -->
+                
+                   
+                    <input style="background-color: 002442;" type="submit" value="Log in" class="sign-btn">
+                  </form>
+
+                 
+            
+                  <a href="/signup">dont have an accout? signup now</a>
+                
+                </div>
+
+        </div>
+    </main>
+        <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+        <script src="/scripts/get_otp.js"></script>
+</body>
+</html>

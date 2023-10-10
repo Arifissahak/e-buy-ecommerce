@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+            <div class="user-profile-box">
+                <div class="left-cartdetails" id="cartItemDetails">
+                    <div class="head-name">
+                        <h1 class="double-underline mb-5">Orders</h1>
+                    </div>
+                    <% if (! locals.orders[0]) {%>
+                        <div class="empty-message text-center mt-5">
+                            <h1>Sorry No Orders yet <br>
+                                please buy something </h1>
+                        </div>
+                        <% } %>
+                            <% let k=0 %>
+                                <% for (let each of locals.orders) { %>
+                                    <% k++ %>
+
+                                        <div class="cart-item shadow">
+                                            <div id="cartItemImg" class="cart-item-img">
+                                                <img src="<%= each.productImg[0] %>" alt="">
+                                            </div>
+                                            <div class="cart-item-details">
+                                                <div class="cart-item-title">
+                                                    <h6>
+                                                        <%= each.productName %>
+                                                    </h6>
+                                                    <p class="product-weight"><span>Qty:</span>
+                                                        <%= each.quantity %>
+                                                    </p>
+                                                </div>
+                                                <div class="cart-item-mid">
+
+                                                    <p class="product-weight"><span>Weight:</span>
+                                                        <%= each.productWeight %>kg
+                                                    </p>
+                                                    <% if (each.orderStatus==='confirmed'){ %>
+                                                    <div class="rating-group" id="ratingGroup"
+                                                        data-pId="<%= each.product_id %>">
+                                                        <% for (let i=1; i<=5 ; i++) { %>
+                                                            <% if (i <= each.rating ) {%>
+                                                                <label aria-label="<%= i %> star" class="rating__label"
+                                                                    for="rating<%= k %>-<%= i %>"><i
+                                                                        class="rating__icon rating__icon--star fa fa-star checked-star"></i></label>
+
+                                                                <input onclick="starRated(this,'<%= k %>')"
+                                                                    class="rating__input" name="rating<%= k %>"
+                                                                    id="rating<%= k %>-<%= i %>" value="<%= i %>"
+                                                                    type="radio" data-check="true">
+
+                                                                <% } else { %>
+                                                                    <label aria-label="<%= i %> star" class="rating__label"
+                                                                        for="rating<%= k %>-<%= i %>"><i
+                                                                            class="rating__icon rating__icon--star fa fa-star"></i></label>
+
+                                                                    <input onclick="starRated(this,'<%= k %>')"
+                                                                        class="rating__input" name="rating<%= k %>"
+                                                                        id="rating<%= k %>-<%= i %>" value="<%= i %>"
+                                                                        type="radio">
+                                                                    <% } %>
+
+                                                                        <% } %>
+
+                                                    </div>
+                                                    <% } %>
+
+                                                </div>
+                                                <div class="cart-item-mid">
+                                                    <%if(each.orderStatus==='cancelled'){ %>
+                                                        <p class="error-message"><span style="color: black;">Status:
+                                                            </span>
+                                                            <%= each.orderStatus %>
+                                                        </p>
+                                                        <%} else if(each.orderStatus==='confirmed') {%>
+                                                            <p class="green"><span style="color: black;">Status:</span>
+                                                                confirmed
+                                                            </p>
+                                                            <% } else { %>
+                                                                <p class="orange"><span style="color: black;">Status:</span>
+                                                                    <%= each.orderStatus %>
+                                                                </p>
+                                                            <% } %>
+                                                                <a class="d-block default-button px-2"
+                                                                    href="/order/<%= each.order_id %>">more -></a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <% } %>
+
+                </div>
+
+
+                <%- include('../partials/user-sidebar') %>
+            </div>
+
+        </div>
+        <script defer src="/scripts/notification.js"></script>
+        <script>
+            window.onload = function () {
+                checkRadios()
+            }
+            function checkRadios() {
+                let starInputs = document.querySelectorAll('.rating__input')
+                for (let input of starInputs) {
+                    if (input.getAttribute('data-check') !== null) {
+                        let id = input.id
+                        const label = document.querySelector(`label[for="${id}"]`)
+                        console.log(label)
+                        const iconElement = label.querySelector('i');
+                        console.log('hai')
+                        iconElement.classList.add('checked-star')
+
+                    }
+                }
+            }
+
+            function starRated(elem, k) {
+                const count = elem.value
+                const ratingGroup = elem.closest('#ratingGroup')
+                const product_id = ratingGroup.getAttribute('data-pId')
+                console.log(product_id)
+
+                const reqBody = {
+                    product_id ,
+                    value : count
+                }
+                
+                fetch(`/update-rating`,{
+                    method : 'POST',
+                    headers : {
+                        'Content-Type':'application/json'
+                    },
+                    body : JSON.stringify(reqBody)
+                })
+                .then(res=>res.json())
+                .then((res)=>{
+                    if(res.success){
+                        ratingGroup.innerHTML = generateRatingHTML(count, k)
+                    }
+                })
+
+               
+            }
+            // Function to generate the HTML content
+            function generateRatingHTML(count, k) {
+                let html = '';
+
+                for (let i = 1; i <= 5; i++) {
+
+          
+
+                    if (i <= count) {
+                        html += `
+                        <label aria-label="${i} star" class="rating__label" for="rating${k}-${i}">
+                            <i class="rating__icon rating__icon--star fa fa-star checked-star"></i>
+                        </label>
+                        <input onclick="starRated(this,${k})" class="rating__input" name="rating${k}"
+                            id="rating${k}-${i}" value="${i}" type="radio" data-check="true">
+            `;
+                    } else {
+                        html += `
+                        <label aria-label="${i} star" class="rating__label" for="rating${k}-${i}">
+                            <i class="rating__icon rating__icon--star fa fa-star"></i>
+                        </label>
+                        <input onclick="starRated(this,${k})" class="rating__input" name="rating${k}"
+                            id="rating${k}-${i}" value="${i}" type="radio">
+                    `;
+                    }
+                }
+
+                return html;
+            }
+
+
+
+        </script>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

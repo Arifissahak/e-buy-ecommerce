@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <div class="dashboard-container">
+        <div class="admin-sidebar">
+            <ul>
+                <li style="border-bottom:4px solid #003466;"><a href="/admin/dashboard"
+                        style="color: blue;">Dashboard</a></li>
+                <li><a href="/admin/orders">Orders</a></li>
+                <li><a href="/admin/products">Products</a></li>
+                <li><a href="/admin/userlists">Users</a></li>
+                <li><a href="/admin/others">Other</a></li>
+            </ul>
+            <div class="logout-button">
+                <a href="/admin/logout">Logout</a>
+            </div>
+        </div>
+        <div class="userlists-div text-center" style="min-height: calc(100vh );">
+
+            <div class=" dashboard-right">
+                <div class="row g-5 dashboard-row">
+
+                    <div class="center-colum col-sm-4">
+                        <div class="dashboard-card-icon bg-primary">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <a href="/admin/userlists">
+                            <div class="card pt-3" style="width: 8rem;">
+                                <div class="card-body">
+                                    <h1 class="card-title">
+                                        <%= locals.dashboardData.userCount %>
+                                    </h1>
+                                    <h6 class="card-subtitle mb-2 text-muted">Users</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="center-colum col-sm-4">
+                        <div class="dashboard-card-icon bg-success">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <a href="/admin/orders">
+                            <div class="card pt-3" style="width: 8rem;">
+                                <div class="card-body">
+                                    <h1 class="card-title">
+                                         <%= locals.dashboardData.orderCount %>
+                                    </h1>
+                                    <h6 class="card-subtitle mb-2 text-muted">Orders</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="center-colum col-sm-4">
+                        <div class="dashboard-card-icon bg-danger">
+                            <i class="bi bi-file-earmark-bar-graph"></i>
+                        </div>
+                        <a href="/admin/products">
+                            <div class="card pt-3" style="width: 8rem;">
+                                <div class="card-body">
+                                    <h1 class="card-title">
+                                        <%= locals.dashboardData.productCount %>
+                                    </h1>
+                                    <h6 class="card-subtitle mb-2 text-muted">Products</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="sales-report-btn my-5 w-100 text-end px-5">
+                    <a class="btn btn-outline-dark" href="/admin/sales-report"> Sales Report</a>
+                </div>
+                <h3 class="mt-5">Order Status</h3>
+                <div class="dashboard-graphs">
+                    <div class="graph-box" >
+                        <canvas id="orderChart"></canvas>
+                    </div>
+
+                    <h3>Category</h3>
+                    <div class="graph-box">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1"></script>
+            <script src="/scripts/dashboard.js"></script>
+</body>
+
+</html>

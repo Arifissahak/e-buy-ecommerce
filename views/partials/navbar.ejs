@@ -1,0 +1,54 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark p-0" style="background-color: rgb(49, 49, 49);">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="#">
+      <img src="/assets/icons/E-buy-logo.png" height="16" alt="MDB Logo" loading="lazy" style="margin-top: -1px;" />
+    </a>
+
+    <% if (!locals.isAdmin) { %>
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       
+      </ul>
+
+      <div class="d-flex align-items-center ps-5">
+        <ul class="navbar-nav" style="font-weight: bold;">
+          <li class="nav-item">
+            <a class="nav-link <%= locals.navIt === 'home'? 'navIt' : '' ;%>" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%= locals.navIt === 'product'? 'navIt' : '' ;%>" href="/products">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%= locals.navIt === 'contact'? 'navIt' : '' ;%>" href="/contact">Contact</a>
+          </li>
+          <% if (!locals.isUser) { %>
+            <li class="nav-item">
+              <a class="nav-link <%= locals.navIt === 'login'? 'navIt' : '' ;%>" href="/login">Login</a>
+            </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link <%= locals.navIt === 'wallet'? 'navIcon' : '' ;%>" href="/wallet"><i class="fa-solid fa-wallet"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <%= locals.navIt === 'profile'? 'navIcon' : '' ;%>" href="/profile"><i class="bi bi-person-fill"></i></a>
+              </li>
+              <% } %>
+        </ul>
+      </div>
+    </div>
+    <% } %>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

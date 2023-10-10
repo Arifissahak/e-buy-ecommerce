@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+       <%- include('../partials/navbar') %>
+    </header>
+    <div class=" container-fluid single-product-main p-0">
+        <div class="back-button">
+            <a href="/admin/products"><i  class="bi bi-arrow-left-short"></i></a>
+        </div>
+        <div class="product-container">
+            <div class="product-images">
+                <div class="main-image"><img onclick="sayHai()" id="main" src="<%= locals.product[0].productImg[0] %>" alt=""></div>
+                <div class="child-images" >
+                  
+                    <% for (let i = 1; i< locals.product[0].productImg.length ;i++) { %>
+                    <div class="">
+                        <img id="child<%= i %>" style="width: 100%; height: 100%; object-fit: cover;" onclick="swap(this.id)" src="<%= locals.product[0].productImg[i] %>" alt="">
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="product-details">
+                <div class="product-details-inner">
+                    <h1 class="my-3"><%= locals?.productName %></h1>
+                    <h4 class="ind-rs my-3"><%= locals.product[0].productPrice %></h4>
+                    <p class="my-2 w-75"><%= locals.product[0].productDescription %></p>
+                    <p >category : <span><%= locals.product[0].category[0].categoryName %></span></p>
+                    <p >weight : <span><%= locals.product[0].productWeight %></span> kg</p>
+                    <p>quantity : <span><%= locals.product[0].productQuantity %></span> pieces left</p>
+                    <% if (product[0].isAvailable) { %>
+                    <p>status : available</p>
+                    <% } else { %>
+                    <p>status : <i style="color: red;">not available</i></p>
+                    <% } %>   
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <%- include('../partials/bootstrap-script') %>
+        <script src="/scripts/products.js"></script>
+        <script src="/scripts/zoom.js"></script>
+        <script src="/scripts/zoomsl.js"></script>
+</body>
+</html>

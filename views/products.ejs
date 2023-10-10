@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include ('../partials/custom-alert')%>
+        <div class="container">
+            <form action="" id="productFilterForm">
+                <div class=" rounded product-filter-bar" id="header" style="background-color: #5e5e5e;">
+                    <button class="btn btn-hide text-uppercase" type="button" data-toggle="collapse"
+                        data-target="#filterbar" aria-expanded="false" aria-controls="filterbar" id="filter-btn"
+                        onclick="changeBtnTxt()" style="background-color: #5e5e5e;"> <span class="fas fa-angle-left" id="filter-angle"></span> <span
+                            id="btn-txt">Filter</span>
+                    </button>
+
+                    <div class="wrap mx-3" id="productSearchBar">
+                        <div class="search">
+                            <input type="text" id="searchItemInput" class="searchTerm"
+                                placeholder="What are you looking for?">
+                            <button type="submit" onclick="insertSearchTrie()" id="searchItemInput" class="searchButton" style="background-color: #9e9e9e;">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <ul id="item-list">
+
+                        </ul>
+                    </div>
+
+
+
+                </div>
+
+                <div id="content" class="my-5">
+                    <div id="filterbar" class="collapse product-filter-box">
+
+
+                        <div class="box border-bottom">
+                            <div class="box-label text-uppercase d-flex align-items-center">Filter Box <button
+                                    class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box2"
+                                    aria-expanded="false" aria-controls="inner-box2"><span
+                                        class="fas fa-plus"></span></button> </div>
+                            <div>
+                                <!-- submit button for filter -->
+
+                                <select id="sortBy" name="sort" style="color: black;">
+                                    <option value="">Sort By : </option>
+                                    <option value="productName">Name</option>
+                                    <option value="productPrice">Price</option>
+                                </select>
+
+                                <input class="default-button px-2" id="filterSubmitButton" style="float: right;"
+                                    type="submit" value="filter">
+                            </div>
+                        </div>
+                        <div class="box border-bottom">
+                            <div class="box-label text-uppercase d-flex align-items-center">Category<button
+                                    class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box"
+                                    aria-expanded="false" aria-controls="inner-box" id="out" onclick="outerFilter()">
+                                    <span class="fas fa-plus"></span>
+                                </button> </div>
+                            <div id="inner-box" class="collapse ms-2 mt-2 mr-1">
+                                <% for (let each of locals.categories) { %>
+                                    <div class="form-check ms-2">
+                                        <input class="form-check-input" type="checkbox" id="birdsCheckbox"
+                                            name="categoryName" value="<%= each.category_id %>">
+                                        <label class="form-check-label" for="birdsCheckbox">
+                                            <%= each.categoryName %>
+                                        </label>
+                                    </div>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <div class="box border-bottom">
+                            <div class="box-label text-uppercase d-flex align-items-center">PRICE <button
+                                    class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box2"
+                                    aria-expanded="false" aria-controls="inner-box2"><span
+                                        class="fas fa-plus"></span></button> </div>
+                            <div id="inner-box2" class="collapse mt-2 mr-1">
+                                <div class="mb-3 ml-2">
+                                    <label class="form-label">Select Price Range:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priceRange" id="range1"
+                                            value="above-10000" style="visibility: visible;">
+                                        <label class="form-check-label" for="range1">above 10000</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priceRange" id="range1"
+                                            value="5000-10000" style="visibility: visible;">
+                                        <label class="form-check-label" for="range1">₹5000 - ₹10000</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priceRange" id="range2"
+                                            value="4000-5000" style="visibility: visible;">
+                                        <label class="form-check-label" for="range2">₹4000 - ₹5000</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priceRange" id="range3"
+                                            value="3000-4000" style="visibility: visible;">
+                                        <label class="form-check-label" for="range3">₹3000 - ₹4000</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priceRange" id="range4"
+                                            value="2000-3000" style="visibility: visible;">
+                                        <label class="form-check-label" for="range4">₹2000 - ₹3000</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priceRange" id="range5"
+                                            value="1000-2000" style="visibility: visible;">
+                                        <label class="form-check-label" for="range5">₹1000 - ₹2000</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="priceRange" id="range6"
+                                            value="above-500" style="visibility: visible;">
+                                        <label class="form-check-label" for="range6">Above ₹500</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </form>
+        </div>
+        <div id="products">
+            <div id="productsRow" class="row mx-0 g-5">
+                <% if (! locals.products[0]) {%>
+                    <div class="empty-message text-center">
+                        <h1>Sorry No Products Please Check after some time</h1>
+                    </div>
+                    <% } else { %>
+                        <% for(let each of locals.products) { %>
+
+                            <div id="" class="col-lg-4 col-md-6">
+                                <div class="wrapper position-relative">
+                                    
+                                        <div class="wishlist-heart-group" style="background-color: #5e5e5e;">
+                                            
+                                            <% if ( locals.cartAndWish &&locals.cartAndWish[0]?.wishListIds?.includes(each.product_id)) { %>
+                                                <input name="<%= each.product_id %>" id="<%= each.product_id %>"
+                                                    type="checkbox" checked />
+                                                <%} else {%>
+                                                    <input name="<%= each.product_id %>" id="<%= each.product_id %>" 
+                                                    type="checkbox" />
+                                                <% } %>
+                                                
+                                                    <label for="<%= each.product_id %>"
+                                                        data-hover-text="<%= each.product_id %>">
+                                                        <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                            xmlns:cc="http://creativecommons.org/ns#"
+                                                            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                                            xmlns:svg="http://www.w3.org/2000/svg"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                                            version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
+                                                            <g transform="translate(0,-952.36218)">
+                                                                <path style="color:#000000;enable-background:accumulate;"
+                                                                    d="m 34.166665,972.36218 c -11.41955,0 -19.16666,8.91891 -19.16666,20.27029 0,19.45943 15,27.56753 35,39.72973 20.00001,-12.1622 34.99999,-20.2703 34.99999,-39.72973 0,-11.35137 -7.7471,-20.27029 -19.16665,-20.27029 -7.35014,0 -13.39148,4.05405 -15.83334,6.48647 -2.44185,-2.43241 -8.48319,-6.48647 -15.83334,-6.48647 z"
+                                                                    fill="transparent" id="heart-path" stroke="#ffff"
+                                                                    stroke-width="5" marker="none" visibility="visible"
+                                                                    display="inline" overflow="visible" />
+                                                            </g>
+                                                        </svg>
+                                                    </label>
+                                                
+
+                                        </div>
+                                    <div class="container m-0 p-0">
+                                        <div class="top">
+                                            <a href="/product/<%= each.product_id %>"><img class="my-auto" src="<%= each.productImg[0] %>" alt=""></a>
+                                        </div>
+                                        <div class="bottom
+                                        <%= locals.cartAndWish && locals.cartAndWish[0]?.cartIds &&
+                                        locals.cartAndWish[0]?.cartIds.includes(each.product_id) ? 'clicked': ''; %>" >
+                                            <div class="left" >
+                                                <div class="details">
+                                                    <h6>
+                                                        <%= each.productName %>
+                                                    </h6>
+                                                    <p class="ind-rs">
+                                                        <%=each.productPrice %>
+                                                    </p>
+                                                </div>
+                                                <div class="buy"
+                                                    onclick="addToCart('<%= each.product_id %>',this,'card')" style="background-color: #5e5e5e;"><i
+                                                        class="material-icons"
+                                                        style="color: #fff;">add_shopping_cart</i></div>
+                                            </div>
+                                            <div class="right">
+                                                <div class="done"><a href="/cart"><i
+                                                            class="material-icons">shopping_cart_checkout</i></a></div>
+                                                <div class="details">
+                                                    <h1></h1>
+                                                    <p class="mt-3"><strong>Go to cart</strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% } %>
+                                <% } %>
+
+            </div>
+        </div>
+        </div>
+        </div>
+        <%- include('../partials/bootstrap-script') %>
+
+            <script defer src="/scripts/productsfilter.js"></script>
+            <script defer src="/scripts/notification.js"></script>
+            <script defer src="/scripts/add_to.js"></script>
+            <script defer src="/scripts/trieSearch.js"></script>
+
+</body>
+
+</html

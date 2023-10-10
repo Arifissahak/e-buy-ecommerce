@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <div class="dashboard-container">
+        <div class="admin-sidebar">
+            <ul>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="">Orders</a></li>
+                <li><a href="/admin/products">Products</a></li>
+                <li><a href="/admin/userlists">Users</a></li>
+                <li style="border-bottom:4px solid #003466;"><a style="color: blue;" href="/admin/others">Other</a></li>
+            </ul>
+            <div class="logout-button">
+                <a href="/admin/logout">Logout</a>
+            </div>
+        </div>
+        <div class="userlists-div" style="min-height: calc(100vh );">
+            <div class="top-banner-lists">
+                <h1>Create Coupon</h1>
+
+                    <p  class="green"><%= locals.msg %></p>
+                <form action="/admin/create-coupon" method="post">
+
+                    <label>Coupon Type:</label> <br>
+                    <input type="radio" id="percent" name="couponType" value="percent" required>
+                    <label for="percent">Percent</label>
+                    <input type="radio" id="flat" name="couponType" value="flat" required>
+                    <label for="flat">Flat Price</label>
+                    <br><br>
+
+                    <label for="couponName">Coupon Name:</label>
+                    <input type="text" id="couponName" name="couponName" pattern="^[a-z]+$" required>
+                    <br><br>
+
+                    <label for="couponValue">Coupon Value:</label>
+                    <input type="number" id="couponValue" name="couponValue" min="1" required>
+                    <br><br>
+                    
+                    <label for="couponLimit">Coupon Limit:</label>
+                    <input type="number" id="couponLimit" name="couponLimit" min="1" required>
+                    <br><br>
+
+
+
+                    <label for="expiryDays">Expiry Date (in days):</label>
+                    <input type="number" id="expiryDays" name="expiryDays" min="1">
+                    <br><br>
+
+                    
+                    <input class="default-button mb-3" type="submit" value="Create Coupon">
+                </form>
+            </div>
+            <div class="coupons my-4 mx-3">
+                <h4 class="my-3">Available Coupons</h4>
+                <div class=" row coupon-list">
+                    <% for (let each of locals.coupons) { %>
+                    <div class="col-sm-4 d-flex">
+                        <div class="card px-3 py-4 text-center" style="width: 15rem; background-color:#d9d9d9;">
+                            <h5><%= each.couponCode %></h5>
+                            <p ><%= each.couponType === 'percent'? `flat ${each.couponValue}% discount on purchase upto ${each.couponLimit}`:`flat ${each.couponValue} discount on any purchase above ${each.couponLimit}`;  %></p>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <div class="dashboard-container">
+        <div class="admin-sidebar">
+            <ul>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="">Orders</a></li>
+                <li><a href="/admin/products">Products</a></li>
+                <li><a href="/admin/userlists">Users</a></li>
+                <li style="border-bottom:4px solid #003466;"><a style="color: blue;" href="/admin/others">Other</a></li>
+            </ul>
+            <div class="logout-button">
+                <a href="/admin/logout">Logout</a>
+            </div>
+        </div>
+        <div class="userlists-div">
+            <div class="top-banner-lists">
+
+                <h2 class=" mb-3">Top Banners</h2>
+
+                <div class=" p-4">
+
+                    <div class="row g-0">
+                        <% for (let img of topBanners.path) {%>
+                            <div class="col-sm-6">
+                                <div class="card shadow" style="width: 15rem;">
+                                    <img class="card-img-top" src="<%= img %>" style="height: 6rem;"
+                                        alt="Card image cap">
+                                    <div class="card-body">
+                                        <a href="/admin/edit-banner/<%= img.slice(16) %>"><i
+                                                class="bi bi-pencil-square"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+
+                <h2 class="my-3" >Create Coupons</h2>
+                <div class=" p-4 my-3">
+                    <a href="/admin/create-coupon">
+                    <div class="card shadow" style="width: 15rem;">
+                        <img class="card-img-top" src="/assets/icons/coupon.jpg" style="height: 6rem;"
+                            alt="Card image cap">
+                    </div>
+                    </a>
+              
+                </div>
+
+                <h2 class="my-3" >Offers</h2>
+                <div class=" p-4 my-3">
+                    <a href="/admin/offer">
+                    <div class="card shadow" style="width: 15rem;">
+                        <img class="card-img-top" src="/assets/icons/special-offer1.jpg" style="height: 9rem;"
+                            alt="Card image cap">
+                    </div>
+                    </a>
+              
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

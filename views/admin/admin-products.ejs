@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <div class="dashboard-container">
+        <div class="sidebar-button">
+            <p  onclick="displaySidebar()"><i class="bi bi-list"></i></p>
+        </div>
+        <div class="admin-sidebar" id="admin-sidebar">
+            <ul>
+                <li><a href="/admin/dashboard" id="dashboard">Dashboard</a></li>
+                <li><a href="/admin/orders" id="orders">Orders</a></li>
+                <li style="border-bottom:4px solid #003466;"><a href="/admin/products" style="color: blue;"
+                        id="products">Products</a></li>
+                <li><a href="/admin/userlists" id="users">Users</a></li>
+                <li><a href="/admin/others">Other</a></li>
+            </ul>
+
+            <div class="filterbox">
+                <h6>Filter : </h6>
+                <div class="overflow-auto" style="height: 180px;">
+                <ul>
+                    <li><a href="/admin/products">All</a></li>
+                    <% for(let each of locals.categories) { %>
+                        <li><a href="/admin/products/<%= each.category_id %>">
+                                <%= each.categoryName %>
+                            </a></li>
+                        <% } %>
+                </ul>
+                </div>
+            </div>
+            <div class="logout-button">
+                <a href="/admin/logout">Logout</a>
+            </div>
+        </div>
+        <div class="productlist-div">
+           
+            <div class="container-fluid">
+                <table class="table col-md">
+                    <thead>
+                        <tr>
+                            <th scope="col">sl no</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Category</th>
+                            <th></th>
+                            <th></th>
+                            <th scope="col"><a href="/admin/add-product" title="add product"><i style="font-size: large;"
+                                        class="bi bi-plus-circle-fill"></i> </a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% let k=0 %>
+                            <% for(let each of locals.products){ %>
+                                <% if (!each.isAvailable) { %>
+                                    <tr class="table-secondary">
+                                        <% } else { %>
+                                    <tr>
+                                        <% } %>
+
+
+
+                                            <th scope="row">
+                                                <%= ++k %>
+                                            </th>
+                                            <td>
+                                                <%= each.productName %>
+                                            </td>
+                                            <td>Rs.<%= each.productPrice %>
+                                            </td>
+                                            <td>
+                                                <%= each.productWeight %>kg
+                                            </td>
+                                            <td>
+                                                <%= each.productQuantity %>pcs
+                                            </td>
+                                            <td>
+                                                <%= each.category[0].categoryName %>
+                                            </td>
+
+                                            <td><a href="/admin/product-details/<%= each.product_id %>"
+                                                    class="more-details">more details</a></td>
+                                            <td><a href="/admin/products/edit/<%= each.product_id %>" title="edit"><i
+                                                        class="bi bi-pencil-square"></a></td>
+                                            <% if (!each.isAvailable) { %>
+                                                <td><a href="/admin/products/unblock/<%= each.product_id %>"
+                                                        title="unblock"><i class="bi bi-lock"></i></a></td>
+                                                <% } else { %>
+                                                    <td><a href="/admin/products/block/<%= each.product_id %>"
+                                                            title="block"><i class="bi bi-unlock"></i></a></td>
+                                                    <% } %>
+                                    </tr>
+                                    <% } %>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <%- include('../partials/footer') %>
+        <%- include('../partials/bootstrap-script') %>
+        <script src="/scripts/display_sidebar.js"></script>
+</body>
+
+</html>

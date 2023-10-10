@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <div class="dashboard-container">
+        <div class="admin-sidebar">
+            <ul>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="">Orders</a></li>
+                <li><a href="/admin/products">Products</a></li>
+                <li><a href="/admin/userlists">Users</a></li>
+                <li style="border-bottom:4px solid #003466;"><a style="color: blue;" href="/admin/others">Other</a></li>
+            </ul>
+            <div class="logout-button">
+                <a href="/admin/logout">Logout</a>
+            </div>
+        </div>
+        <div class="userlists-div" style="min-height: calc(100vh );">
+            <div class="top-banner-lists">
+                <h1>Introduce Offers</h1>
+
+                    <p  class="green"><%= locals.msg %></p>
+                <form action="/admin/offer" method="post" enctype="multipart/form-data">
+
+                    <label>Offer Type :</label> <br>
+                    <input type="radio" id="percent" name="offerType" value="percent" required>
+                    <label for="percent">Percent</label>
+                    <input type="radio" id="flat" name="offerType" value="flat" required>
+                    <label for="flat">Flat Price</label>
+                    <br><br>
+
+                    <label for="offerName">Offer Name:</label>
+                    <input type="text" id="offerName" name="offerName" pattern="^[a-z]+$" required>
+                    <br><br>
+
+                    <label for="offerValue">Offer Value:</label>
+                    <input type="number" id="offerValue" name="offerValue" min="1" required>
+                    <br><br>
+                    
+                    <label for="offerLimit">Limit :</label>
+                    <input type="number" id="offerLimit" name="offerLimit" min="1" required>
+                    <br><br>
+
+                    <label for="category">Category:</label><br>
+                        <select id="category" style="color: black; cursor: pointer;" name="category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <% for (let each of locals.category) {%>
+                                <option value="<%= each.categoryName %>">
+                                    <%= each.categoryName %>
+                                </option>
+                                <%}%>
+                                    <!-- Add more categories as needed -->
+                        </select>
+
+
+                    <label for="expiryDays">Expiry Date (in days):</label>
+                    <input type="number" id="expiryDays" name="expiryDays" min="1">
+                    <br><br>
+
+                    <label for="file_uploader">Upload Image:</label><br>
+                    <input type="file" style="cursor: pointer;" id="file_uploader" name="img-file" accept=".jpg, .jpeg, .png" multiple><br><br>
+
+                    
+                    <input class="default-button mb-3" type="submit" value="Create Coupon">
+                </form>
+        
+            </div>
+          
+
+        </div>
+    </div>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

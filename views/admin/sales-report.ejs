@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header style="position: fixed; top: 0;">
+        <%- include('../partials/navbar') %>
+    </header>
+    <div class="admin-sales-report">
+        <div class="container mt-5 position-relative">
+            <div class="sales-rprt-back rounded-circle"><a href="/admin/dashboard"><i style="color: #ffff;" class="bi bi-arrow-left-short"></i></a></div>
+            <h1>Sales Report</h1>
+            <div class="sales-selector text-end my-3">
+                <form id="dateForm">
+                    <select id="dateSelector" name="date">
+                        <option value="" disabled selected>Select Date</option>
+                    </select>
+                    <select id="monthSelector" name="month" onchange="updateDays()">
+                        <option value="" disabled selected>Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+
+                    <select id="yearDropdown" name="year">
+                        <option value="" disabled selected>Select Year</option>
+                        <!-- JavaScript will populate the options here -->
+                    </select>
+                    <button type="button" class="default-button py-1 px-3" onclick="submitForm()">submit</button>
+                </form>
+            </div>
+
+            <div class="text-end my-3">
+                <a id="pdfDownloadBtn" class="btn btn-outline-danger" href="/admin/createPdf">Get pdf</a>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sl no:</th>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>User</th>
+                        <th>Order At</th>
+                        <th>Total Price</th>
+                        <th>Amount <br> Payable</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Add table rows with data here -->
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+            <script src="/scripts/admin-sales-rprt.js"></script>
+
+</body>
+
+</html>

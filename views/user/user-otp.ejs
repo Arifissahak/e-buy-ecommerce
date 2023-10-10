@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+       <%- include('../partials/navbar') %>
+    </header>
+    <main>
+        <div class="login-box">
+                <div>
+                    <h2>Enter Otp</h2>
+                    <form action="/otp-configure" method="post">
+                        
+                        <label for="otp">otp:</label><br>
+                        <input type="text" id="otp" name="otp"><br>
+
+                        <input type="submit" id="submit-btn">
+                    </form>
+
+                  <p><%= locals.message %></p>
+                 
+                </div>
+
+        </div>
+    </main>
+        <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+</html>

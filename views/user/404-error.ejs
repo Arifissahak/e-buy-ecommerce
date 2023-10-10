@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header style="position: fixed; top: 0;">
+        <%- include('../partials/navbar') %>
+    </header>
+    <div class="d-flex justify-content-center" style="min-height:100vh;">
+        <div class="">
+            <div class="position-relative">
+                <h1 class="err4">404</h1>
+                <div class="err404-img d-flex">
+                    <img src="/assets/catOnWall1111png.png" alt="">
+                </div>
+            </div>
+            <div class="err404-title text-center">
+
+                <h4 class="err-text mb-3 font-weight-bold">You Came to the wrong neighbourhood</h4>
+                <a href="/">Go home -></a>
+
+            </div>
+        </div>
+
+    </div>
+
+        <%- include('../partials/bootstrap-script') %>
+
+</body>
+
+</html>

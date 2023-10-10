@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+            <div class="back-button">
+                <a href="/admin/orders"><i class="bi bi-arrow-left-short"></i></a>
+            </div>
+            <div class="user-profile-box">
+                <div class="order-details-sidebar p-3 shadow " style="max-height: 450px; top: 15%;">
+                    <h1><%= locals.user.name.toUpperCase() %></h1>
+                    <p class="m-0 p-0"><%= locals.user.email %></p>
+                    <div>                   
+                    <p class="m-0">Order id : <%= locals.order.order_id %></p>
+                    <% if (locals.order.orderStatus === 'cancelled') { %>
+                        <p class="m-0">Order Status : <span class="error-message"><%= locals.order.orderStatus %></span></p>
+                    
+                    <%} else {%>
+                        <p class="m-0">Order Status : <%= locals.order.orderStatus %></p>
+                    
+                        <% } %>
+                        
+                    <p class="m-0">Order placed at : <%= locals.orderDate %> , payment : <%= locals.order.paymentMethod %></p>
+                    </div>
+                    <div class="mt-2">
+                        <p class="shipping mb-1">shipping details</p>
+                        <p class="address-details"><%= locals.order.address.houseName %></p>
+                        <p class="address-details"><%= locals.order.address.streetAddress %></p>
+                        <p class="address-details"><%= locals.order.address.city %></p>
+                        <p class="address-details"><%= locals.order.address.state %> - <%= locals.order.address.postalcode %></p>
+                        <p class="address-details"><%= locals.order.mobile %></p>
+                    </div>
+                    <div class="mt-2">
+                        <p class="shipping mb-1">price details</p>
+                        <div class="cart-item-title">
+                            <p class="m-0">coupon</p>
+                            <p class="product-price m-0"><%= locals.order.coupon? locals.order.coupon:'no coupon !' %></p>
+                        </div>
+                        <div class="cart-item-title">
+                            <p>Total Amount</p>
+                            <p class="product-price ind-rs"><%= locals.order.amountPayable? locals.order.amountPayable : locals.order.total %></p>
+                        </div>
+                        <div class="cart-item-title">
+                            <% if (locals.order.orderStatus === 'pending') {%>
+                                <a class="default-button px-2" href="/admin/order-confirm/<%= locals.order.order_id %>">confirm</a>
+                                <%} %>
+        
+                                <% if (!(locals.order.orderStatus === 'cancelled')) {%>
+                                <a class="cancel-button px-2" href="/admin/order-cancel/<%= locals.order.order_id %>">cancel</a>
+                                <%} %>
+            
+                        </div>
+                    </div>
+                </div>
+                <div class="left-orderdetails" id="cartItemDetails">
+                    <div class="head-name">
+                        <h1 class="double-underline mb-5">Orders</h1>
+                    </div>
+                    <% for (let each of locals.products) { %>
+
+                        <div class="cart-item">
+                            <div id="cartItemImg" class="cart-item-img">
+                                <img src="<%= each.productImg[0] %>" alt="">
+                            </div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">
+                                    <h6>
+                                        <%= each.productName %>
+                                    </h6>
+                                    <p class="product-price">
+                                        <%= each.productPrice %>
+                                    </p>
+
+                                </div>
+                                <div class="cart-item-mid">
+                                    <p class="product-weight"><span>Qty:</span>
+                                        <%= each.quantity %>
+                                    </p>
+
+                                    <p class="product-weight"><span>Weight:</span>
+                                        <%= each.productWeight %>kg
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+        <script defer src="/scripts/notification.js"></script>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

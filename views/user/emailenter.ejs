@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <main>
+        <div class="confirm-box">
+           <p>enter your email</p>
+            <form action="/emailotp" method="post">
+                <label for="email"></label>
+                <input type="email" name="email" id="email">
+                <p class="error-message"><%= locals.message %></p>
+                <input class="default-button" type="submit" value="send otp">
+            </form>
+        </div>
+    </main>
+    <%- include('../partials/footer')%>
+    <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

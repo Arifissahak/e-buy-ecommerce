@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Return</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure to cancel this order
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">cancel</button>
+                            <a href="/cancel-order/<%= locals.order.order_id %>" type="button" class="btn btn-outline-danger">Confirm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-profile-box">
+                <div class="left-orderdetails" id="cartItemDetails">
+                    <div class="head-name">
+                        <h1 class="double-underline mb-5">Orders</h1>
+                    </div>
+                    <% for (let each of locals.products) { %>
+
+                        <div class="cart-item shadow">
+                            <div id="cartItemImg" class="cart-item-img">
+                                <img src="<%= each.productImg[0] %>" alt="">
+                            </div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">
+                                    <h6>
+                                        <%= each.productName %>
+                                    </h6>
+                                    <p class="product-price">
+                                        <%= each.productPrice %>
+                                    </p>
+
+                                </div>
+                                <div class="cart-item-mid">
+                                    <p class="product-weight"><span>Qty:</span>
+                                        <%= each.quantity %>
+                                    </p>
+
+                                    <p class="product-weight"><span>Weight:</span>
+                                        <%= each.productWeight %>kg
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+                <div class="order-details-sidebar p-3 shadow">
+                    <div>
+                        <p class="m-0">Order id : <%= locals.order.order_id %>
+                        </p>
+                        <% if (locals.order.orderStatus==='cancelled' ) { %>
+                            <p class="m-0">Order Status : <span class="error-message">
+                                    <%= locals.order.orderStatus %>
+                                </span></p>
+
+                            <%} else {%>
+                                <p class="m-0">Order Status : <%= locals.order.orderStatus %>
+                                </p>
+
+                                <% } %>
+
+                                    <p class="m-0">Order placed at : <%= locals.orderDate %> ,  payment : <%= locals.order.paymentMethod %>
+                                    </p>
+                    </div>
+                    <div class="mt-2">
+                        <p class="shipping mb-1">shipping details</p>
+                        <p class="address-details">
+                            <%= locals.order.address.houseName %>
+                        </p>
+                        <p class="address-details">
+                            <%= locals.order.address.streetAddress %>
+                        </p>
+                        <p class="address-details">
+                            <%= locals.order.address.city %>
+                        </p>
+                        <p class="address-details">
+                            <%= locals.order.address.state %> - <%= locals.order.address.postalcode %>
+                        </p>
+                        <p class="address-details">
+                            <%= locals.order.mobile %>
+                        </p>
+                    </div>
+                    <div class="mt-2">
+                        <p class="shipping mb-1">price details</p>
+                        <div class="cart-item-title">
+                            <p class="m-0">coupon</p>
+                            <p class="product-price m-0">
+                                <%= locals.order.coupon? locals.order.coupon:'no coupon !' %>
+                            </p>
+                        </div>
+                        <div class="cart-item-title">
+                            <p class="m-0">Total Amount</p>
+                            <p class="product-price ind-rs m-0">
+                                <%= locals.order.amountPayable? locals.order.amountPayable : locals.order.total %>
+                            </p>
+                        </div>
+                        <% if (locals.order.orderStatus==='confirmed' ) { %>
+                            <div>
+                                <a class="btn btn-danger py-1" href="/invoice/<%= locals.order.order_id %>">Get
+                                    Invoice</a>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-dark py-1" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    Cancel
+                                </button>
+
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+                <script defer src="/scripts/notification.js"></script>
+                <script>
+
+                </script>
+</body>
+
+</html>

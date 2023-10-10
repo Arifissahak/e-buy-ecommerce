@@ -1,0 +1,22 @@
+<div class="user-sidebar shadow" style="background-color: rgb(32, 32, 32);">
+    <div class="profile-head text-center">
+        <div class="head"><i style="font-size: 6em;" class="bi bi-person-circle"></i></div>
+        <p class="p-0">
+            <%= locals.user.name.toUpperCase() %>
+        </p>
+    </div>
+    <div class="profile-lists" style="background-color: rgb(35, 35, 35);">
+        <ul>
+            <ul>
+                <li class="<%= locals.dest === 'profile' ? 'border-white' : '' %>"><a href="/profile">Profile</a></li>
+                <li class="<%= locals.dest === 'myOrder' ? 'border-white' : '' %>"><a href="/orders">My Orders</a></li>
+                <li class="<%= locals.dest === 'myCart' ? 'border-white' : '' %>"><a href="/cart">My Cart</a></li>
+                <li class="<%= locals.dest === 'wishlist' ? 'border-white' : '' %>"><a href="/wishlist">Wishlist</a></li>
+                <li class="<%= locals.dest === 'other' ? 'border-white' : '' %>"><a href="/other">Other</a></li>
+
+            </ul>
+
+        </ul>
+    </div>
+    <div class="text-center mt-3 mb-2"><a class="default-button" href="/logout">logout</a></div>
+</div>

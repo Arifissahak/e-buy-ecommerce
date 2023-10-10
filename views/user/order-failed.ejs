@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+       <%- include('../partials/navbar') %>
+    </header>
+    <main style="min-height:78vh;">
+        <div class="order-completed-box w-50">
+            <div class="text-center">
+                <img src="/assets/icons/errorExclamation.svg" style="height: 150px; width: auto;" alt=""><br>
+                <h1 class="mt-3">Order Failed...!</h1>
+                <h5>Try Again After Sometimes</h5>
+            </div>
+            <div class="text-center mt-5">
+                 <a class="default-button" href="/cart">Go to cart</a>
+            </div>
+        </div>
+    </main>
+        <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+</html>

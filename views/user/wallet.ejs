@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+            <div class="user-profile-box">
+                <div class="left-cartdetails " id="cartItemDetails"
+                    style="max-height: 400px; min-height: 400px; padding: 0 20rem;">
+                    <div class="other-box bg-white rounded shadow" style="width: 100%; height: 100%; overflow: hidden;">
+
+                        <div class="wallet-head" style="background-color: rgb(53, 53, 53);">
+                            <p class="page-title m-0 py-2"><i class="fa fa-align-left pe-2 mt-2"></i> Wallet
+                            </p>
+                        </div>
+
+                        <div class="wallet-box-in h-100">
+                            <div class="amount-box text-center">
+                                <img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw"
+                                    alt="wallet">
+                                <p>Total Balance</p>
+                                <p class="amount ind-rs"><%= locals.user.wallet || 0 %></p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+                <%- include('../partials/user-sidebar') %>
+            </div>
+
+        </div>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

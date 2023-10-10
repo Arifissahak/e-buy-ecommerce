@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+
+            <div class="user-profile-box">
+                <div class="select-payment-details" style="padding: 0 23rem;" id="cartItemDetails">
+                    <div class="wallet-pay-top py-3 px-3 rounded-top">
+                        <p class="m-0" style="background-color: rgb(55, 55, 55)b2b;">your wallet</p>
+                        <p id="walletMoney" class="ind-rs m-0"><%= locals.user?.wallet || 0 %></p>
+                    </div>
+                    <div class="px-4 py-3 rounded shadow" style="background-color: #fff;">
+                        
+                        <h4>Payment Method</h4>
+                        <form action="/placeorder" method="post">
+                            <input onclick="changeButton()" type="radio" id="cashOnDelivery" name="paymentMethod" value="COD"
+                                checked>
+                            <label class="me-1" for="cashOnDelivery">Cash on Delivery</label>
+
+                            <input onclick="changeSubmit(this.value)" type="radio" id="upi" name="paymentMethod" value="UPI/Bank" >
+                            <label for="upi" class="me-1">UPI/Bank</label>
+
+                            <input onclick="changeSubmit(this.value)" type="radio" id="wallet" name="paymentMethod" value="Wallet" >
+                            <label class="me-1" for="wallet">Wallet</label><br>
+
+                          
+                            <h4>Discount Coupons</h4>
+        
+                            <div class=" my-3 row coupon-list">
+                                <% for (let each of locals.coupons) { %>
+                                    
+                                    <div class="col-sm-6 d-flex">
+                                        <input type="radio" id="<%= each._id %>" name="discountCoupon" onclick="couponDiscount(`<%= each._id  %>`)" value="<%= each._id %>">
+                                        <label for="<%= each._id %>">
+                                        <div class="ms-2 p-1 text-center border d-flex align-items-center">
+                                            <div>
+                                                <h5>
+                                                    <%= each.couponCode %>
+                                                </h5>
+                                                <p>
+                                                    <%= each.couponType==='percent' ? `flat ${each.couponValue}%
+                                                        discount on purchases upto ${each.couponLimit}`:`flat ${each.couponValue}
+                                                        discount on any purchase above ${each.couponLimit}`; %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    </div>
+                            
+                                    <% } %>
+                                    <div class="col-sm-6 d-flex align-items-center">
+                                        <input type="radio" id="noCoupon" name="discountCoupon" onclick="couponDiscount('noCoupon')" value="">
+                                        <label for="noCoupon">
+                                        <div class="ms-2 p-1 text-center border d-flex align-items-center">
+                                            <div>
+                                                <h5>
+                                                    No Coupon
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    </div>
+                            
+                            </div>                           
+
+                            <div class="select-payment-total">
+                                <h5>Price Details</h5>
+                                <div class="cart-item-mid">
+                                    <p id="couponTitle"></p>
+                                    <p id="couponValue"></p>
+                                </div>
+
+                                <div class="cart-item-mid">
+                                    <p id="itemsCount">total(<%= locals.count %> item)</p>
+                                    <p id="itemSum" class="ind-rs">
+                                        <%= locals.total %>
+                                    </p>
+                                </div>
+                               <div class="text-end">
+                                <input id="formSubmitBtn" class="default-button px-2 rounded mt-1" type="submit"
+                                value="confirm order">
+                               </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <script defer src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script defer src="/scripts/notification.js"></script>
+        <script defer src="/scripts/select_payment.js"></script>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

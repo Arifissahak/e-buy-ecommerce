@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <main style="min-height:78vh;">
+        <div class="order-completed-box w-50">
+            <div class="text-center">
+                <img src="/assets/icons/tickMark.svg" style="height: 150px; width: auto;" alt=""><br>
+                <% if(locals.cod) { %>
+                    <h1 class="mt-3">Order Cancelled...</h1>
+                    <% } else if (locals.online ){ %>
+                        <h1 class="mt-3">Order Cancelled...</h1>
+                        <p>amount will be refunded</p>
+                        <%} else {%>
+                            <h1 class="mt-3">Order Confirmed...!</h1>
+                            <% } %>
+                                <h5>Thankyou for shopping</h5>
+            </div>
+            <div class="d-flex justify-content-between my-5">
+                <% if(locals.cod || locals.online) { %>
+                    <a class="default-button d-block" href="/orders">Go to orders</a>
+                    <%} else {%>
+                        <a class="default-button d-block" href="/order/123">show order details</a> <a
+                            class="default-button d-block" href="/">countinue shopping</a>
+                        <% } %>
+            </div>
+        </div>
+    </main>
+    <%- include('../partials/footer')%>
+        <%- include('../partials/bootstrap-script') %>
+</body>
+
+</html>

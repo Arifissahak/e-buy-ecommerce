@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" style="position: relative;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('../partials/bootstrap-styles') %>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body style="position: relative;">
+    <div id="modaleBg" class="modale-background">
+        <p></p>
+    </div>
+
+    <header>
+        <%- include('../partials/navbar') %>
+    </header>
+    <%- include('../partials/custom-alert') %>
+        <div class="userprofile-main">
+
+            <!-- Button trigger modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form id="editProfileForm">
+                            <div class="modal-header">
+                                <h5>Edit Profile</h5>
+                            </div>
+
+                            <div class="modal-body" id="modalBody">
+                                <label for="name">name</label><br>
+                                <input type="text" id="name" name="name" pattern="^[a-zA-Z]+$" required><br>
+                                <label for="email">Email</label><br>
+                                <input type="email" id="email" name="email" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required><br>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button onclick="resetPassword()" type="button" class="btn btn-danger">Reset Password</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-profile-box">
+                <div class="left-userdetails">
+                    <div class="user-top d-flex justify-content-between">
+                        <div class="head-name" style="color: rgb(255, 255, 255);">
+                            <h2>
+                                <%= locals.user.name.toUpperCase() %>
+                            </h2>
+                            <p>
+                                <%= locals.user.email %>
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-end mb-2">
+                            <button type="button" onclick="editProfile()" class="default-button " data-toggle="modal"
+                                data-target="#exampleModal">
+                                edit profile
+                            </button>
+                        </div>
+                    </div>
+                    <div class="address">
+                        <h4>Address</h4>
+                        <% for (let each of locals.address) { %>
+                            <div class="address-box">
+                                <div class="address-details">
+                                    <p>
+                                        <%= each.houseName %>, <%= each.streetAddress %>,
+                                    </p>
+                                    <p>
+                                        <%= each.city %>,
+                                    </p>
+                                    <p>
+                                        <%= each.state %>,
+                                    </p>
+                                    <p>postal code : <%= each.postalcode %>,
+                                    </p>
+                                    <p>mobile : <%= each.mobile %>
+                                    </p>
+                                </div>
+                                <div class="deleteButton">
+                                    <p onclick="deleteAddress('<%= each._id %>',this.parentNode)"><i
+                                            class="bi bi-file-earmark-minus-fill button-color"></i></p>
+                                </div>
+
+                            </div>
+                            <% } %>
+                                <div class="add-address-btn my-3">
+                                    <a class="default-button" href="/add-address">+add address</a>
+                                </div>
+                    </div>
+
+
+                </div>
+
+                <%- include('../partials/user-sidebar') %>
+            </div>
+
+
+            <div id="userDetailModale" class="rounded shadow">
+                <div>
+                    <form action="/" id="userDataForm" method="">
+
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name" required><br>
+
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email" required><br>
+
+                        <button onclick="update()" class="default-button">Update</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <%- include('../partials/footer')%>
+            <%- include('../partials/bootstrap-script') %>
+                <script defer src="/scripts/notification.js"></script>
+                <script defer src="/scripts/userProfile.js"></script>
+</body>
+
+</html>

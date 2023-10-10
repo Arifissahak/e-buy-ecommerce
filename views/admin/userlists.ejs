@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+    <header>
+       <%- include('../partials/navbar') %>
+    </header>
+    <div class="dashboard-container">
+       <div class="admin-sidebar">
+        <ul>
+          <li><a href="/admin/dashboard">Dashboard</a></li>
+          <li><a href="/admin/orders"  id="orders">Orders</a></li>
+          <li><a href="/admin/products">Products</a></li>
+          <li style="border-bottom:4px solid #003466;"><a href="/admin/userlists" style="color: blue;">Users</a></li>
+          <li><a href="/admin/others">Other</a></li>
+        </ul>
+        <div class="filter">
+
+        </div>
+        <div class="logout-button">
+            <a href="/admin/logout">Logout</a>
+        </div>
+       </div>
+       <div class="userlists-div">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">sl no</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th scope="col"><a href=""><i class="bi bi-person-add"></i> </a></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let k = 0 %>
+              <% for(let i=0;i< locals.datas.length;i++) { %>
+                <% if (datas[i].isBlocked) { %>
+                  <tr class="table-secondary">
+                  <% } else { %>
+                  <tr>
+                  <% } %>
+               
+             
+                
+                <th scope="row"><%= ++k %></th>
+                <td><%= datas[i].name %> </td>
+                <td><%= datas[i].email %></td>
+                <td><a href="/admin/user/more/<%= datas[i].user_id %>" class="more-details">more details</a></td>
+                <td><a href=""><i class="bi bi-pencil-square"></a></td>
+                <td></td>
+                <% if (datas[i].isBlocked) { %>
+                <td><a href="/admin/user/unblock/<%= datas[i].user_id %>"><i  class="bi bi-person-lock"></i></a></td>
+                <% } else { %>
+                <td><a href="/admin/user/block/<%= datas[i].user_id %>"><i class="bi bi-unlock"></i></a></td>
+                <% } %>
+              </tr>
+              <% } %>
+             
+             
+            </tbody>
+          </table>
+       </div>
+    </div>
+        <%- include('../partials/footer')%>
+       
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
